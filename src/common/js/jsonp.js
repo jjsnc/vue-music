@@ -2,9 +2,9 @@
  * @Author: jjsnc
  * @Date:   2017-12-13 14:26:47
  * @Last Modified by:   jjsnc
- * @Last Modified time: 2017-12-13 14:44:58
+ * @Last Modified time: 2017-12-13 15:21:25
  */
-import originJSONP form "jsonp"
+import originJSONP from 'jsonp'
 
 export default function jsonp(url, data, option) {
   url += (url.indexOf('?') < 0 ? '?' : '&') + param(data)
