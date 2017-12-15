@@ -1,13 +1,7 @@
-/*
- * @Author: jjsnc
- * @Date:   2017-12-13 14:48:39
- * @Last Modified by:   jjsnc
- * @Last Modified time: 2017-12-13 15:23:34
- */
-
 // 如果引用的其它js文件模块 是export default 不需要使用{} 否则要使用{}
 import jsonp from 'common/js/jsonp'
 import { commonParams, options } from './config'
+import axios from 'axios'
 export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
   // Object.assign() 是es6 新增的语法
@@ -17,4 +11,24 @@ export function getRecommend() {
     needNewCode: 1
   })
   return jsonp(url, data, options)
+}
+
+export function getDiscList() {
+  const url = '/api/getDiscList'
+  const data = Object.assign({}, commonParams, {
+    platform: 'yqq',
+    hostUin: 0,
+    sin: 0,
+    ein: 29,
+    sortId: 5,
+    needNewCode: 0,
+    categoryId: 10000000,
+    rnd: Math.random(),
+    format: 'json'
+  })
+  return axios.get(url, {
+    params: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  })
 }
