@@ -1,19 +1,30 @@
 <template>
   <transition name="slide">
     <div class="singer-detail">
-       这里是歌单详情页面
+      这里是歌单详情页面
     </div>
   </transition>
 </template>
 
 <script>
-  export default {}
+  import {mapGetters} from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters([
+        'singer'
+      ])
+    },
+    created() {
+      console.log(this.singer)
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/variable"
   .slide-enter-active, .slide-leave-active
-    transition : all 0.3s
+    transition: all 0.3s
 
   .slide-enter, .slide-leave-to
     transform: translate3d(100%, 0, 0)
