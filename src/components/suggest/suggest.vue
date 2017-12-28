@@ -3,7 +3,9 @@
           class="suggest"
           :data="result"
           :pullup="pullup"
+          :beforeScroll="beforeScroll"
           @scrollToEnd="searchMore"
+          @beforeScroll="listScroll"
   >
     <ul class="suggest-list">
       <li @click="selectItem(item)" class="suggest-item" v-for="item in result">
@@ -131,6 +133,9 @@
           this.insertSong(item)
         }
         this.$emit('select', item)
+      },
+      listScroll() {
+        this.$emit('listScroll')
       },
       ...mapMutations({
         setSinger: 'SET_SINGER'
