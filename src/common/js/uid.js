@@ -1,9 +1,3 @@
-/*
-* @Author: jjsnc
-* @Date:   2018-04-12 14:26:14
-* @Last Modified by:   jjsnc
-* @Last Modified time: 2018-04-12 14:26:29
-*/
 let _uid = ''
 
 export function getUid() {

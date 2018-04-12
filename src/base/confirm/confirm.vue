@@ -14,8 +14,7 @@
   </transition>
 </template>
 
-
-<script>
+<script type="text/ecmascript-6">
   export default {
     props: {
       text: {
@@ -54,7 +53,6 @@
     }
   }
 </script>
-
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/variable"

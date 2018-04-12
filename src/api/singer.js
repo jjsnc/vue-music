@@ -31,5 +31,7 @@ export function getSingerDetail(singerId) {
     songstatus: 1,
     singermid: singerId
   })
+
   return jsonp(url, data, options)
 }
+

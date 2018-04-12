@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import {debounce} from 'common/js/util'
 
   export default {
@@ -62,6 +62,7 @@
       background: $color-highlight-background
       color: $color-text
       font-size: $font-size-medium
+      outline: 0
       &::placeholder
         color: $color-text-d
     .icon-dismiss

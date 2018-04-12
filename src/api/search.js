@@ -9,6 +9,7 @@ export function getHotKey() {
     needNewCode: 1,
     platform: 'h5'
   })
+
   return jsonp(url, data, options)
 }
 
@@ -32,5 +33,6 @@ export function search(query, page, zhida, perpage) {
     needNewCode: 1,
     platform: 'h5'
   })
+
   return jsonp(url, data, options)
 }

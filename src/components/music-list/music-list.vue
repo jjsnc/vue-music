@@ -6,7 +6,7 @@
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div ref="playBtn" v-show="songs.length> 0" class="play" @click="random">
+        <div ref="playBtn" v-show="songs.length>0" class="play" @click="random">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -14,29 +14,30 @@
       <div class="filter" ref="filter"></div>
     </div>
     <div class="bg-layer" ref="layer"></div>
-    <scroll :data="songs" class="list" ref="list" @scroll="scroll" :listen-scroll="listenScroll"
-            :probe-type="probeType">
+    <scroll :data="songs" @scroll="scroll"
+            :listen-scroll="listenScroll" :probe-type="probeType" class="list" ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs" :rank="rank"  @select="selectItem"></song-list>
+        <song-list :songs="songs" :rank="rank" @select="selectItem"></song-list>
       </div>
       <div v-show="!songs.length" class="loading-container">
         <loading></loading>
       </div>
     </scroll>
-
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
   import SongList from 'base/song-list/song-list'
   import {prefixStyle} from 'common/js/dom'
-  import {mapActions} from 'vuex'
   import {playlistMixin} from 'common/js/mixin'
+  import {mapActions} from 'vuex'
+
   const RESERVED_HEIGHT = 40
   const transform = prefixStyle('transform')
-  const backdrop = prefixStyle('backdrop')
+  const backdrop = prefixStyle('backdrop-filter')
+
   export default {
     mixins: [playlistMixin],
     props: {
@@ -59,7 +60,7 @@
     },
     data() {
       return {
-        ScrollY: 0
+        scrollY: 0
       }
     },
     computed: {
@@ -83,7 +84,7 @@
         this.$refs.list.refresh()
       },
       scroll(pos) {
-        this.ScrollY = pos.y
+        this.scrollY = pos.y
       },
       back() {
         this.$router.back()
@@ -105,7 +106,7 @@
       ])
     },
     watch: {
-      ScrollY(newVal) {
+      scrollY(newVal) {
         let translateY = Math.max(this.minTransalteY, newVal)
         let scale = 1
         let zIndex = 0
@@ -117,6 +118,7 @@
         } else {
           blur = Math.min(20, percent * 20)
         }
+
         this.$refs.layer.style[transform] = `translate3d(0,${translateY}px,0)`
         this.$refs.filter.style[backdrop] = `blur(${blur}px)`
         if (newVal < this.minTransalteY) {
@@ -129,13 +131,13 @@
           this.$refs.bgImage.style.height = 0
           this.$refs.playBtn.style.display = ''
         }
-        this.$refs.bgImage.style.zIndex = zIndex
         this.$refs.bgImage.style[transform] = `scale(${scale})`
+        this.$refs.bgImage.style.zIndex = zIndex
       }
     },
     components: {
-      Loading,
       Scroll,
+      Loading,
       SongList
     }
   }
@@ -217,7 +219,7 @@
       height: 100%
       background: $color-background
     .list
-      position: fixed
+      position: absolute
       top: 0
       bottom: 0
       width: 100%

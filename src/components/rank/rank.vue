@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
   import {getTopList} from 'api/rank'
@@ -43,6 +43,7 @@
     methods: {
       handlePlaylist(playlist) {
         const bottom = playlist.length > 0 ? '60px' : ''
+
         this.$refs.rank.style.bottom = bottom
         this.$refs.toplist.refresh()
       },
@@ -60,10 +61,16 @@
         })
       },
       ...mapMutations({
-        setTopList: `SET_TOP_LIST`
+        setTopList: 'SET_TOP_LIST'
       })
     },
-    watch: {},
+    watch: {
+      topList() {
+        setTimeout(() => {
+          this.$Lazyload.lazyLoadHandler()
+        }, 20)
+      }
+    },
     components: {
       Scroll,
       Loading

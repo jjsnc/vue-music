@@ -1,19 +1,21 @@
 <template>
   <div class="singer" ref="singer">
-    <list-view :data="singers" @select="selectSinger" ref="list"></list-view>
+    <list-view @select="selectSinger" :data="singers" ref="list"></list-view>
     <router-view></router-view>
   </div>
 </template>
-<script>
+
+<script type="text/ecmascript-6">
+  import ListView from 'base/listview/listview'
   import {getSingerList} from 'api/singer'
   import {ERR_OK} from 'api/config'
   import Singer from 'common/js/singer'
   import {mapMutations} from 'vuex'
-  import ListView from 'base/listview/listview'
   import {playlistMixin} from 'common/js/mixin'
 
   const HOT_SINGER_LEN = 10
   const HOT_NAME = '热门'
+
   export default {
     mixins: [playlistMixin],
     data() {
@@ -69,7 +71,7 @@
             id: item.Fsinger_mid
           }))
         })
-        //  为了得到有序列表 我们需要处理map
+        // 为了得到有序列表，我们需要处理 map
         let ret = []
         let hot = []
         for (let key in map) {
@@ -93,7 +95,9 @@
       ListView
     }
   }
+
 </script>
+
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .singer
     position: fixed
