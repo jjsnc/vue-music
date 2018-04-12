@@ -2,7 +2,6 @@ import {commonParams} from './config'
 import axios from 'axios'
 
 export function getLyric(mid) {
-  const url = '/api/lyric'
    const url = debug ? '/api/lyric' : 'http://47.98.165.100/study-vue-music//api/lyric'
 
   const data = Object.assign({}, commonParams, {
