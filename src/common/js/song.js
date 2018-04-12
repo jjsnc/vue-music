@@ -1,6 +1,6 @@
-import {getLyric} from 'api/song'
-import {ERR_OK} from 'api/config'
-import {Base64} from 'js-base64'
+import { getLyric, getSongsUrl } from 'api/song'
+import { ERR_OK } from 'api/config'
+import { Base64 } from 'js-base64'
 
 export default class Song {
   constructor({id, mid, singer, name, album, duration, image, url}) {
@@ -11,6 +11,7 @@ export default class Song {
     this.album = album
     this.duration = duration
     this.image = image
+    this.filename = `C400${this.mid}.m4a`
     this.url = url
   }
 
@@ -18,14 +19,14 @@ export default class Song {
     if (this.lyric) {
       return Promise.resolve(this.lyric)
     }
-    console.log()
+
     return new Promise((resolve, reject) => {
       getLyric(this.mid).then((res) => {
         if (res.retcode === ERR_OK) {
           this.lyric = Base64.decode(res.lyric)
           resolve(this.lyric)
         } else {
-          // reject('no lyric')
+          reject('no lyric')
         }
       })
     })
@@ -54,4 +55,24 @@ function filterSinger(singer) {
     ret.push(s.name)
   })
   return ret.join('/')
+}
+
+export function isValidMusic(musicData) {
+  return musicData.songid && musicData.albummid && (!musicData.pay || musicData.pay.payalbumprice === 0)
+}
+
+export function processSongsUrl(songs) {
+  if (!songs.length) {
+    return Promise.resolve(songs)
+  }
+  return getSongsUrl(songs).then((res) => {
+    if (res.code === ERR_OK) {
+      let midUrlInfo = res.url_mid.data.midurlinfo
+      midUrlInfo.forEach((info, index) => {
+        let song = songs[index]
+        song.url = `http://dl.stream.qqmusic.qq.com/${info.purl}`
+      })
+    }
+    return songs
+  })
 }
