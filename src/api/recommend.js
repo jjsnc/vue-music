@@ -18,6 +18,7 @@ export function getDiscList() {
   // const url = '/api/getDiscList'
     // 线上环境地址，同学们根据自己的需要配置修改
   const url = debug ? '/api/getDiscList' : 'http://47.98.165.100/study-vue-music/api/getDiscList'
+
   const data = Object.assign({}, commonParams, {
     platform: 'yqq',
     hostUin: 0,
@@ -38,7 +39,7 @@ export function getDiscList() {
 
 export function getSongList(disstid) {
   // const url = '/api/getSongList'
-   const url = debug ? '/api/getCdInfo' : 'http://47.98.165.100/study-vue-music/api/getCdInfo'
+  const url = debug ? '/api/getCdInfo' : 'http://47.98.165.100/study-vue-music/api/getCdInfo'
   const data = Object.assign({}, commonParams, {
     disstid,
     type: 1,
