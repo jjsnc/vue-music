@@ -1,6 +1,6 @@
 import {commonParams} from './config'
 import axios from 'axios'
-
+const debug = process.env.NODE_ENV !== 'production'
 export function getLyric(mid) {
    const url = debug ? '/api/lyric' : 'http://47.98.165.100/study-vue-music//api/lyric'
 
